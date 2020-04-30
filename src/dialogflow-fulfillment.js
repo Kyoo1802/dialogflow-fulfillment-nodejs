@@ -477,6 +477,8 @@ class WebhookClient {
   send_() {
     const requestSource = this.requestSource;
     const messages = this.responseMessages_;
+    console.log("send_.requestSource:" + requestSource);
+    console.log("send_.messages:" + messages);
 
     // If AoG response and the first response isn't a text response,
     // add a empty text response as the first item
@@ -497,11 +499,14 @@ class WebhookClient {
       this.client.addTextResponse_();
     } else if (SUPPORTED_RICH_MESSAGE_PLATFORMS.indexOf(this.requestSource) > -1
       || SUPPORTED_PLATFORMS.indexOf(this.requestSource) < 0) {
+      console.log("send_.addMessagesResponse_");
       this.client.addMessagesResponse_(requestSource);
     }
     if (payload && !payload.sendAsMessage) {
+      console.log("send_.addPayloadResponse_");
       this.client.addPayloadResponse_(payload, requestSource);
     }
+    console.log("send_.sendResponses_");
     this.client.sendResponses_(requestSource);
   }
 
