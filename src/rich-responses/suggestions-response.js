@@ -194,9 +194,10 @@ class Suggestion extends RichResponse {
       response = {quickReplies: {
           title: this.title,
           quickReplies: this.replies,
-        },
-        platform = platform
+        }
       };
+      
+      response.platform = platform;
     } else {
       response = {quickReplies: {quickReplies: this.replies}};
       // Response is the same for generic responses without the platform attribute
