@@ -499,7 +499,7 @@ class WebhookClient {
       this.client.addTextResponse_();
     } else if (SUPPORTED_RICH_MESSAGE_PLATFORMS.indexOf(this.requestSource) > -1
       || SUPPORTED_PLATFORMS.indexOf(this.requestSource) < 0) {
-      console.log("send_.addMessagesResponse_");
+      console.log("send_.addMessagesResponse_ "+ (payload && !payload.sendAsMessage));
       this.client.addMessagesResponse_(requestSource);
     }
     if (payload && !payload.sendAsMessage) {
@@ -547,6 +547,7 @@ class WebhookClient {
   existingPayload_(platform) {
     let existingPayload;
     for (let response of this.responseMessages_) {
+      console.log("existingPayload_:" +response+" ="+(response instanceof Payload));
       if (response instanceof Payload) {
         if (
           (!response.platform || response.platform === PLATFORMS.UNSPECIFIED) &&
