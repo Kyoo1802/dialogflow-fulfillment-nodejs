@@ -204,6 +204,7 @@ class Suggestion extends RichResponse {
         response.platform = platform;
       }
     }
+    console.log("getV2ResponseObject_.response" + response);
     return response;
   }
 }
