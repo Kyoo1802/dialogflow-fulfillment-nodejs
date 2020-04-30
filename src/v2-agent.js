@@ -213,6 +213,7 @@ class V2Agent {
    */
   addMessagesResponse_(requestSource) {
     let messages = this.buildResponseMessages_(requestSource);
+    console.log("addMessagesResponse_.length"+messages.length);
     if (messages.length > 0) {
       this.addJson_({fulfillmentMessages: messages});
     }
@@ -255,7 +256,7 @@ class V2Agent {
       }
       debug('Response to Dialogflow: ' + JSON.stringify(responseJson));
       
-      console.log("sendResponses_ "+responseJson);
+      console.log("sendResponses_ "+JSON.stringify(responseJson));
       this.agent.response_.json(responseJson);
     }
   }
@@ -269,7 +270,11 @@ class V2Agent {
    * @private
    */
   buildResponseMessages_(requestSource) {
-    return this.agent.responseMessages_.map((message) => message.getV2ResponseObject_(requestSource)).
+    return this.agent.responseMessages_.map((message) => {
+      var obj = message.getV2ResponseObject_(requestSource);
+      console.log("buildResponseMessages_: "+JSON.stringify(obj));
+      return obj;
+    }).
       filter((arr) => arr);
   }
 
