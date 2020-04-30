@@ -194,7 +194,7 @@ class Suggestion extends RichResponse {
       response = {quickReplies: {
         //title: this.title,
         quickReplies: this.replies,
-        platform: platform
+        platform: PLATFORMS.ACTIONS_ON_GOOGLE
       }};
     } else {
       response = {quickReplies: {quickReplies: this.replies}};
