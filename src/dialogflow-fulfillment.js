@@ -478,7 +478,7 @@ class WebhookClient {
     const requestSource = this.requestSource;
     const messages = this.responseMessages_;
     console.log("send_.requestSource:" + requestSource);
-    console.log("send_.messages:" + messages);
+    console.log("send_.messages:" + messages.length);
 
     // If AoG response and the first response isn't a text response,
     // add a empty text response as the first item
@@ -487,6 +487,7 @@ class WebhookClient {
       !(messages[0] instanceof Text) &&
       !this.existingPayload_(PLATFORMS.ACTIONS_ON_GOOGLE)
     ) {
+      console.log("send_.responseMessages_");
       this.responseMessages_ = [new Text(' ')].concat(messages);
     }
 
@@ -497,6 +498,7 @@ class WebhookClient {
     if (messages.length === 1 &&
       messages[0] instanceof Text) {
       this.client.addTextResponse_();
+      console.log("send_.addTextResponse_ ");
     } else if (SUPPORTED_RICH_MESSAGE_PLATFORMS.indexOf(this.requestSource) > -1
       || SUPPORTED_PLATFORMS.indexOf(this.requestSource) < 0) {
       console.log("send_.addMessagesResponse_ "+ (payload && !payload.sendAsMessage));
@@ -547,7 +549,7 @@ class WebhookClient {
   existingPayload_(platform) {
     let existingPayload;
     for (let response of this.responseMessages_) {
-      console.log("existingPayload_:" +response+" ="+(response instanceof Payload));
+      console.log("existingPayload_:" +JSON.stringify(response)+" ="+(response instanceof Payload));
       if (response instanceof Payload) {
         if (
           (!response.platform || response.platform === PLATFORMS.UNSPECIFIED) &&
